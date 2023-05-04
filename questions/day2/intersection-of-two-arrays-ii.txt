@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/intersection-of-two-arrays-ii
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        multiset<int> mySet;
+        multiset<int> :: iterator it;
+        vector<int> ans;
+        for(int num : nums1){
+            mySet.insert(num);
+        }
+         
+        for(int num : nums2){
+            it = mySet.find(num);
+            if(it != mySet.end()){
+                ans.push_back(num);
+                mySet.erase(it);
+            }
+        }
+        return ans;
+    }
+};
+
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(),nums1.end());
+        sort(nums2.begin(),nums2.end());
+        vector<int> answer;
+        int i,j;
+        i=j=0;
+       // cout<<nums1[i]<<" "<<nums2[j]<<endl;
+        while(i< nums1.size() && j< nums2.size()){
+            if(nums1[i]==nums2[j]){
+                answer.push_back(nums1[i]);
+                ++i;
+                ++j;
+            }else if(nums1[i]<nums2[j]){
+                ++i;
+            }else{
+                ++j;
+            }
+        }
+        return answer;
+    }
+};

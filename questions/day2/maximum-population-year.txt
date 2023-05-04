@@ -1,0 +1,28 @@
+//https://leetcode.com/problems/maximum-population-year/
+
+class Solution {
+public:
+    int maximumPopulation(vector<vector<int>>& logs) {
+        int size = (2050-1950 + 1);
+        int arr[size];
+        int offset = 1950;
+        for(int i=0;i<size;++i) arr[i]=0;
+
+        for(vector<int> person : logs){
+            arr[person[0]-offset] +=1;
+            arr[person[1]-offset] -=1;
+        }
+
+        int maxPopulation =0, year = offset;
+        int population = 0;
+        for(int i=0;i<size;++i){
+          
+          population += arr[i];
+          if(population > maxPopulation){
+              maxPopulation = population;
+              year = i + offset;
+          }
+        }
+        return year;
+    }
+};
