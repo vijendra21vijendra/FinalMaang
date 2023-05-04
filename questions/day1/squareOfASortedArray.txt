@@ -1,0 +1,35 @@
+//https://leetcode.com/problems/squares-of-a-sorted-array/submissions/944460298/
+
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> ans;
+        int i = 0;
+        int n = nums.size();
+        while(i < n && nums[i] < 0){
+            ++i;
+        }
+        int forward, backward;
+        forward = i;
+        backward = i-1;
+        while(forward < n && backward >= 0){
+            if(nums[backward]*nums[backward] < nums[forward]*nums[forward] ){
+                ans.push_back(nums[backward]*nums[backward]);
+                --backward;
+            }else{
+                ans.push_back(nums[forward]*nums[forward]);
+                ++forward;
+            }
+        }
+        while(forward < n){
+            ans.push_back(nums[forward]*nums[forward]);
+            ++forward;
+        }
+        while(backward >= 0){
+                 ans.push_back(nums[backward]*nums[backward]);
+                --backward;           
+        }
+        return ans;
+    }
+};

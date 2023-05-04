@@ -1,0 +1,32 @@
+//https://leetcode.com/problems/majority-element/
+
+
+it's just simple using hash or map.
+
+Follow up is can we solve in linear time and without extra space. 
+
+// just assume that any no in majority elemnt 
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+
+      int majElement = nums[0];
+      int count = 1;
+
+      for(int i=1;i<nums.size();++i){
+          if(nums[i]==majElement){
+              ++count;
+          }else{
+              if(count == 0){
+                  majElement = nums[i];
+                  ++count;
+              }else{
+                  --count;
+              }
+          }
+      }
+      return majElement;
+
+    }
+};
