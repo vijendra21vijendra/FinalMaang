@@ -1,0 +1,88 @@
+//https://leetcode.com/problems/find-winner-on-a-tic-tac-toe-game/submissions/944712005/
+
+class Solution {
+public:
+   bool checkOne(char maze[3][3], int r, int c, int x , int y)
+   {
+       int i = r, j = c;
+
+       int count = 0;
+       while(count < 3 && i >=0 && i< 3 && j>=0 && j<3){
+           if(maze[r][c] == maze[i][j]){
+               ++count;
+               i += x;
+               j += y;
+           }else{
+               return false;
+           }
+       }
+   return count == 3 ? true:false;
+
+   }
+    bool check(char maze[3][3], vector<int> location)
+    {
+        int r = location[0], c = location[1];
+        if(checkOne(maze, r, c, 1, 1)){
+            return true;
+        }
+        if(checkOne(maze, r, c, -1, -1)){
+            return true;
+        }
+        if(checkOne(maze, r-1, c-1, 1, 1)){
+            return true;
+        }
+                if(checkOne(maze, r, c, 1, 0)){
+            return true;
+        }
+                if(checkOne(maze, r, c, -1, 0)){
+            return true;
+        }
+                if(checkOne(maze, r-1, c, 1, 0)){
+            return true;
+        }
+                if(checkOne(maze, r, c, 0, 1)){
+            return true;
+        }
+                if(checkOne(maze, r, c, 0, -1)){
+            return true;
+        }
+                     if(checkOne(maze, r, c-1, 0, 1)){
+            return true;
+        }
+                if(checkOne(maze, r, c, 1, -1)){
+            return true;
+        }
+                if(checkOne(maze, r, c, -1, 1)){
+            return true;
+        }
+                     if(checkOne(maze, r+1, c-1, -1, 1)){
+            return true;
+        }
+        return false;
+    }
+
+    string tictactoe(vector<vector<int>>& moves) {
+        char maze[3][3];
+
+        for(int i=0;i<3;++i){
+            for(int j=0;j<3;++j){
+                maze[i][j] = 'e';
+            }
+        }
+
+        for(int i=0;i<moves.size();++i){
+            if(i%2==0){
+                maze[moves[i][0]][moves[i][1]] = 'X';
+            }else{
+              maze[moves[i][0]][moves[i][1]] = 'O';
+            }
+
+            bool decesion = check(maze, moves[i]);
+            if(decesion){
+                cout<<i<<endl;
+                return i%2==0?"A":"B";
+            }
+        }
+       return moves.size()==9?"Draw":"Pending";
+    }
+};

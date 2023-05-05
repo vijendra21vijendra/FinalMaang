@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/third-maximum-number/submissions/944723520/
+
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        int maxi1,maxi2,maxi3;
+        maxi1=maxi2=maxi3=INT_MIN;
+        bool flag = false;
+        for(int i=0;i<nums.size();++i){
+            if(nums[i]==INT_MIN){
+              flag = true;
+            }
+            if(nums[i]==maxi1 || nums[i]==maxi2 ||  nums[i]==maxi3) continue;
+
+            if(nums[i] > maxi1){
+                maxi3 = maxi2;
+                maxi2 = maxi1;
+                maxi1 = nums[i];
+            }else if(nums[i] > maxi2){
+                maxi3 = maxi2;
+                maxi2 = nums[i];
+            }else if(nums[i] > maxi3){
+                maxi3 = nums[i];
+            }
+        }
+        if(maxi2==INT_MIN) return maxi1;
+        if(maxi3 == INT_MIN)
+        {
+            return flag?maxi3:maxi1;
+        } 
+        return maxi3==maxi2?maxi1:maxi3;
+    }
+};
