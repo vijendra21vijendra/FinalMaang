@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/valid-parentheses
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> stck;
+        for(int i=0;i<s.length();++i){
+            cout<<s[i]<<endl;
+            if(s[i]=='(' || s[i]=='{'|| s[i]=='['){
+             //   cout<<1<<endl;
+                stck.push(s[i]);
+            }else if(stck.empty()){
+              //  cout<<2<<endl;
+                return false;
+            }else if(stck.top()==rev(s[i])){
+               // cout<<3<<endl;
+                stck.pop();
+            }else{
+               // cout<<4<<endl;
+                return false;
+            }
+        }
+        return stck.empty();
+    }
+    char rev(char s){
+        if(s == ')')
+            return '(';
+        else if(s == '}')
+            return '{';
+        else
+            return '[';
+    }
+};

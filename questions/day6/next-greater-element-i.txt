@@ -1,0 +1,68 @@
+
+//https://leetcode.com/problems/next-greater-element-i
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        
+
+        stack<int> stck;
+        unordered_map<int, int> indexSet;
+        for(int i=0;i<nums2.size();++i){
+                indexSet.insert({nums2[i], i});
+        }
+        vector<int> ans(nums2.size());
+        int i = nums2.size()-1;
+        while(i >= 0){
+            if(stck.empty()){
+                ans[i] = -1;
+            }else{
+                while(!stck.empty() && stck.top() <= nums2[i]){
+                    stck.pop();
+                }
+                if(stck.empty()){
+                ans[i] = -1;
+              }else{
+                  ans[i] = stck.top();
+              }
+            }
+            stck.push(nums2[i]);
+            --i;
+        }
+        vector<int> finalAns;
+
+        for(int num : nums1){
+            finalAns.push_back(ans[indexSet[num]]);
+        }
+        return finalAns;
+    }
+};
+
+
+
+
+class Solution {
+public:
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> answer(nums1.size());
+        for(int i=0;i<nums1.size();++i){
+            
+            int j=0;
+            while(nums2[j]!=nums1[i]){
+                ++j;
+            }
+            int val=nums2[j];
+            ++j;
+            while(j<nums2.size() && nums2[j]<val){
+                ++j;
+            }
+            if(j==nums2.size()){
+                val = -1;
+            }else{
+                val  = nums2[j];
+            }
+            answer[i] = val;
+        }
+        return answer;
+    }
+};
