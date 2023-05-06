@@ -1,0 +1,52 @@
+//https://leetcode.com/problems/sum-of-all-odd-length-subarrays/submissions/945265089/
+
+class Solution {
+public:
+    int sumOddLengthSubarrays(vector<int>& arr) {
+        int sum =0; // defines total sum
+
+        for(int len=1;len<= arr.size(); len+=2)
+        {
+
+           int oddSum = 0; // defines sum of all sub arrays of one odd length
+           int tempSum = 0; // defines sum of only 1 subarray of odd length
+            int i=0;
+            while(i < len){
+                tempSum += arr[i];
+                ++i;
+            }
+            oddSum += tempSum;
+            while(i < arr.size()){
+                tempSum += arr[i];
+                tempSum -= arr[i - len];
+                oddSum += tempSum;
+                ++i;
+            }
+            //cout<<oddSum<<endl;
+            sum+= oddSum;
+        }
+        return sum;
+    }
+};
+
+
+
+class Solution {
+public:
+    int sumOddLengthSubarrays(vector<int>& arr) {
+        int sum =0; // defines total sum
+
+        for(int i=0;i<arr.size();++i)
+        {
+            
+            int leftNum = i;
+            int rightNum = arr.size() - (i+1);
+            int val = 0;
+            val += (((leftNum + 1)/2) * ((rightNum + 1)/2));  // odd sum arrays in both sides
+            val += (((leftNum+2)/2) * ((rightNum+2)/2)); // even sum arrays in both sides
+            sum += (val*arr[i]);
+        }
+
+        return sum;
+    }
+};
