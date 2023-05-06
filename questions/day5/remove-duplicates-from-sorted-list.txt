@@ -1,0 +1,31 @@
+//https://leetcode.com/problems/remove-duplicates-from-sorted-list/submissions/306299192/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==NULL||head->next==NULL){
+            return head;
+        }
+        ListNode *a, *b;
+        a = head;
+        b = head->next;
+        while(b!=NULL){
+            if(b->val == a->val){
+                a->next = b->next;
+                delete b;
+                b = a->next;
+            }else{
+                a = a->next;
+                b = b->next;
+            }
+        }
+        return head;
+    }
+};

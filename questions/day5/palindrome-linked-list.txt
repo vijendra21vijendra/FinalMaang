@@ -1,0 +1,86 @@
+//https://leetcode.com/problems/palindrome-linked-list/submissions/945336592/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+
+ListNode* reverseList(ListNode* head) {
+        if(head==NULL) return head;
+
+        ListNode *a, *b, *c;
+        b = c = NULL;
+        a = head->next;
+        b = head;
+        while(a != NULL){
+            b->next = c;
+            c  =b ;
+            b = a;
+            a = a->next;
+        }
+        b->next = c;
+        return b;
+    }
+
+        ListNode* middleNode(ListNode* head) {
+        if(!head) return NULL;
+        ListNode *slow, *fast;
+        slow = head;
+        fast = head->next;
+        while(slow && fast){
+            slow = slow->next;
+            if(fast->next){
+                fast = fast->next->next;
+            }else{
+                fast = fast->next;
+            }
+        }
+        return slow;
+    }
+
+    int length(ListNode *head){
+        int len  = 0;
+        while(head!= NULL){
+            ++len;
+            head = head->next;
+        }
+        return len;
+    }
+
+
+    bool isPalindrome(ListNode* head) {
+        if(head== NULL || head->next == NULL) return true;
+
+        ListNode *middle = middleNode(head);
+        int len = length(head);
+        
+        ListNode *firstList = head;
+        ListNode *secondList;
+
+        if(len%2 == 0){
+            secondList = middle;
+        }else{
+            secondList = middle->next;
+        }
+
+        secondList = reverseList(secondList);
+
+        while(firstList != NULL && secondList != NULL){
+            if(firstList->val != secondList->val ){
+                return false;
+            }
+            firstList = firstList->next;
+            secondList = secondList->next;
+        }
+        return true;
+
+    }
+};
