@@ -1,0 +1,67 @@
+//https://leetcode.com/problems/binary-tree-postorder-traversal/submissions/308978177/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> answer;
+        get(root,answer);
+        return answer;
+    }
+    void get(TreeNode *root , vector<int> &answer)
+    {
+        if(root == NULL){
+            return ;
+        }
+        get(root->left,answer);
+        get(root->right,answer);
+        answer.push_back(root->val);
+    }
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> postorderTraversal(TreeNode* root)
+    {
+        vector<int> answer;
+        stack<TreeNode*> stck;
+        if(root == NULL)
+        {
+            return answer;
+        }
+        stck.push(root);
+        TreeNode *x;
+        while(!stck.empty())
+        {
+           x = stck.top();
+           answer.push_back(x->val);
+           stck.pop();
+                      if(x->left){
+               stck.push(x->left);
+           }
+            if(x->right){
+                stck.push(x->right);
+            }
+
+
+        }
+      reverse(answer.begin(), answer.end());
+      return answer;
+    }
+};
